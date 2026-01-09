@@ -1,6 +1,8 @@
-# Backend - Mini Event Manager POC
 
-## Tecnologías
+# Mini Event Manager
+## Backend
+
+### Tecnologías
 
 - Node.js 20.19.1 +
 - NestJS
@@ -9,7 +11,7 @@
 - Docker & Docker Compose
 - JWT Authentication
 
-## Requisitos previos
+### Requisitos previos
 
 - Docker
 - Docker Compose
@@ -97,20 +99,20 @@ exit
 ```
 
 
-## Endpoints principales
+### Endpoints principales
 
-### Auth
+#### Auth
 - POST /api/register
 - POST /auth/login
 
-### Events
+#### Events
 - POST /events
 - GET /events
 - GET /events/:id
 - PUT /events/:id
 - DELETE /events/:id
 
-## Notas importantes
+### Notas importantes
 
 ```
 El host db en DATABASE_URL solo funciona dentro de Docker
@@ -118,9 +120,81 @@ El host db en DATABASE_URL solo funciona dentro de Docker
 Las migraciones deben ejecutarse dentro del contenedor
 ```
 
-### Detener el proyecto
+#### Detener el proyecto
 
 ```
 docker-compose down
 ```
 
+
+## Frontend
+
+### Tecnologías
+
+- Framework: Next.js 14 (App Router)
+- Lenguaje: TypeScript
+- HTTP Client: Fetch API
+- Environment Variables: .env.local
+
+### Requisitos previos
+
+- Node >= 18
+- NPM
+- Backend en ejecucion
+
+## Configuración inicial
+
+### Variables de entorno
+
+Crear los archivos
+- .env.example
+- .env 
+
+Copiar en cada archivo:
+
+```
+El archivo .env debe contener:
+
+NEXT_PUBLIC_API_URL=http://localhost:5000
+```
+
+#### Desde la carpeta frontend:
+
+```
+npm install
+```
+
+#### Ejecutar la aplicación
+
+```
+npm run dev
+```
+
+#### La aplicación estará disponible en:
+
+http://localhost:3000
+
+
+## Pantallas implementadas
+
+- Login
+- Registro
+- Listado de eventos
+- Detalle de evento
+- Crear evento
+- Editar evento
+- Eliminar evento
+
+### Notas importantes
+
+El backend debe estar corriendo en el puerto 5000
+
+Si el backend no responde, la app mostrará errores
+
+### Detener frontend
+
+Presiona:
+
+```
+CTRL + C
+```
