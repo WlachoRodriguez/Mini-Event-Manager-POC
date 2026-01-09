@@ -8,7 +8,6 @@ export default function Login() {
   const [password, setPassword] = useState("");
 
   async function submit() {
-    debugger;
     const res = await fetch(process.env.NEXT_PUBLIC_API_URL + "/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
