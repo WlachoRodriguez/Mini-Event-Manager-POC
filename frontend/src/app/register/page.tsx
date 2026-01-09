@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Card, Form, Input, Button, Typography, Alert } from "antd";
+
+const { Title } = Typography;
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -10,8 +13,7 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     setError("");
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/register`, {
@@ -29,42 +31,71 @@ export default function RegisterPage() {
   };
 
   return (
-    <main style={{ padding: 24 }}>
-      <h1>Registro</h1>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="w-full max-w-md px-4">
+        <Card className="shadow-lg">
+          <Title level={3} className="text-center mb-6">
+            Registro
+          </Title>
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <input
-            placeholder="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-        </div>
+          {error && (
+            <Alert type="error" message={error} showIcon className="mb-4" />
+          )}
 
-        <div>
-          <input
-            placeholder="Email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
+          <Form layout="vertical" onFinish={handleSubmit}>
+            <Form.Item
+              label="Nombre"
+              name="name"
+              rules={[{ required: true, message: "Nombre requerido" }]}
+            >
+              <Input
+                placeholder="Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </Form.Item>
 
-        <div>
-          <input
-            placeholder="Contraseña"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
+            <Form.Item
+              label="Email"
+              name="email"
+              rules={[
+                { required: true, message: "Email requerido" },
+                { type: "email", message: "Email inválido" },
+              ]}
+            >
+              <Input
+                placeholder="Email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </Form.Item>
 
-        <button type="submit">Registrar</button>
-        {error && <p style={{ color: "red" }}>{error}</p>}
-      </form>
-    </main>
+            <Form.Item
+              label="Contraseña"
+              name="password"
+              rules={[
+                { required: true, message: "Contraseña requerida" },
+                { min: 5, message: "Mínimo 5 caracteres" },
+              ]}
+            >
+              <Input
+                placeholder="Contraseña"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </Form.Item>
+
+            <Button type="primary" htmlType="submit" block>
+              Registrar
+            </Button>
+          </Form>
+        </Card>
+      </div>
+    </div>
   );
 }
