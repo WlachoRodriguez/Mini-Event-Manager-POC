@@ -1,0 +1,15 @@
+# General
+node_modules
+.env
+.env.*
+.DS_Store
+
+# Backend
+backend/dist
+backend/node_modules
+backend/prisma/dev.db
+
+# Frontend
+frontend/.next
+frontend/node_modules
+frontend/out
